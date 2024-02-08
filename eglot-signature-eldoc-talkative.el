@@ -123,6 +123,7 @@
             sig-info-params)))
       (buffer-string))))
 
+;;;###autoload
 (defun eglot-signature-eldoc-talkative (cb)
   "A member of `eldoc-documentation-functions', for signatures."
   (when (eglot--server-capable :signatureHelpProvider)
