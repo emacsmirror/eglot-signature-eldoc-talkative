@@ -135,24 +135,24 @@
         :success-fn
         (eglot--lambda
           ((SignatureHelp)
-            signatures active-sig active-param)
+            signatures activeSignature activeParameter)
           (eglot--when-buffer-window buf
             (if-let
               ((active-sig
                  (or
-                   (seq--elt-safe signatures active-sig)
-                   ;; if active-sig is out of range, try 0, as
+                   (seq--elt-safe signatures activeSignature)
+                   ;; if activeSignature is out of range, try 0, as
                    ;; recommended by LSP specification.
                    (seq--elt-safe signatures 0))))
               (funcall cb
                 (mapconcat
                   (lambda (sig)
                     (eglot-signature-eldoc-talkative--sig-info
-                      active-sig active-param))
+                      active-sig activeParameter))
                   signatures "\n\n")
                 :echo
                 (eglot-signature-eldoc-talkative--sig-info
-                  active-sig active-param t))
+                  active-sig activeParameter t))
               (funcall cb
                 (and signatures
                   (mapconcat
