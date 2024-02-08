@@ -57,12 +57,15 @@ instructed in the section "Usage":
 #+html: <img src="https://codeberg.org/mekeor/emacs-eglot-signature-eldoc-talkative/raw/branch/screenshots/talkative.png">
 
 In this example, this package made Eglot make Eldoc show two
-additional things: (1.) The documentation of the active parameter.
-(2.) The documentation of the function (signature information). (The
-"(parameter) error: Fastify.FastifyError […]" bit is gone because
-~eldoc-documentation-strategy~ has been set to
-~eldoc-documentation-enthusiast~. If you prefer to keep it, don't use
-the strategy "enthusiast".)
+additional things:
+
+1. The documentation of the active parameter.
+2. The documentation of the function (signature information).
+
+(Note that the "(parameter) error: Fastify.FastifyError […]" bit is
+only gone because I opted into setting ~eldoc-documentation-strategy~
+to ~eldoc-documentation-enthusiast~ for the screenshot. If you prefer
+to keep it, don't use the strategy "enthusiast".)
 
 * Why not contribute upstream?
 
