@@ -8,7 +8,7 @@
 ;; Keywords: convenience, documentation, eglot, eldoc, languages, lsp
 ;; Maintainer: Mekeor Melire <mekeor@posteo.de>
 ;; Package-Requires: (emacs eglot)
-;; Version: 0.0.1
+;; Version: 0.0.2
 
 ;; This file is NOT part of GNU Emacs.
 
