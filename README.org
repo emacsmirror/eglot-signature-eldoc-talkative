@@ -58,11 +58,11 @@ For usage, in Eglot-managed buffers, in the buffer-local variable
 
 [[https://codeberg.org/mekeor/emacs-eglot-signature-eldoc-talkative/raw/branch/screenshots/talkative.png][Here]]'s a screenshot which uses the function
 ~eglot-signature-eldoc-talkative~ provided by this Emacs package, as
-instructed in the [[* Usage][section "Usage"]]:
+instructed in [[* Usage][section "Usage"]]:
 
 #+html: <img src="https://codeberg.org/mekeor/emacs-eglot-signature-eldoc-talkative/raw/branch/screenshots/talkative.png">
 
-In this example, this package lead to Eglot letting ElDoc show two
+In this example, this package lead to Eglot letting ElDoc echo two
 additional things:
 
 1. The documentation of the active parameter ([[https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#parameterInformation][parameter information]]).
