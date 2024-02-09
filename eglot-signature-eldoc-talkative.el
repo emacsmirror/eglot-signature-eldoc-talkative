@@ -1,4 +1,4 @@
-;;; eglot-signature-eldoc-talkative.el --- Make Eglot make Eldoc echo docs -*- lexical-binding: t -*-
+;;; eglot-signature-eldoc-talkative.el --- Make Eglot make ElDoc echo docs -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2024 Free Software Foundation, Inc.
 
@@ -7,10 +7,9 @@
 ;; Homepage: https://codeberg.org/mekeor/emacs-eglot-signature-eldoc-talkative
 ;; Keywords: convenience, documentation, eglot, eldoc, languages, lsp
 ;; Maintainer: Mekeor Melire <mekeor@posteo.de>
-;; Package-Requires: (emacs (eglot "1.16"))
+;; Package-Requires: ((emacs "29.1") (eglot "1.16") (eldoc "1.14.0"))
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 ;; Version: 0.0.3
-
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -30,14 +29,14 @@
 
 ;;; Commentary:
 
-;; Eglot does not instruct Eldoc to echo the field "documentation" of
+;; Eglot does not instruct ElDoc to echo the field "documentation" of
 ;; LSP-objects "signature information" and "parameter information"
 ;; (into the echo-area). To read those fields, the user instead has to
 ;; open the *eldoc* buffer by calling the command `eldoc-doc-buffer'
 ;; (bound to C-h . by default).
 
 ;; This package offers a function, `eglot-signature-eldoc-talkative',
-;; that makes Eglot instruct Eldoc to echo the field "documentation"
+;; that makes Eglot instruct ElDoc to echo the field "documentation"
 ;; of LSP-objects "signature information" and "parameter information"
 ;; (into the echo-area).
 

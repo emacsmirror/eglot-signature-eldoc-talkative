@@ -2,18 +2,22 @@
 
 * Rationale
 
-Eglot does not instruct Eldoc to echo the field "documentation" of
+Eglot does not instruct ElDoc to echo the field "documentation" of
 LSP-objects "signature information" and "parameter information" (into
 the echo-area). To read those fields, the user instead has to open the
 =*eldoc*= buffer by calling the command ~eldoc-doc-buffer~ (bound to
 =C-h .= by default).
 
 This package offers a function, ~eglot-signature-eldoc-talkative~,
-that makes Eglot instruct Eldoc to echo the field "documentation" of
+that makes Eglot instruct ElDoc to echo the field "documentation" of
 LSP-objects "signature information" and "parameter information" (into
 the echo-area).
 
-See also section "Screenshots" which includes an explanation.
+This packages only makes sense to use when you use ElDoc version
+1.14.0 (released on 2nd April 2023) or later because that's when the
+=:echo= key was introduced.
+
+See also [[* Screenshots][section "Screenshots"]] which includes an explanation.
 
 * Usage
 
@@ -54,11 +58,11 @@ For usage, in Eglot-managed buffers, in the buffer-local variable
 
 [[https://codeberg.org/mekeor/emacs-eglot-signature-eldoc-talkative/raw/branch/screenshots/talkative.png][Here]]'s a screenshot which uses the function
 ~eglot-signature-eldoc-talkative~ provided by this Emacs package, as
-instructed in the section "Usage":
+instructed in the [[* Usage][section "Usage"]]:
 
 #+html: <img src="https://codeberg.org/mekeor/emacs-eglot-signature-eldoc-talkative/raw/branch/screenshots/talkative.png">
 
-In this example, this package lead to Eglot letting Eldoc show two
+In this example, this package lead to Eglot letting ElDoc show two
 additional things:
 
 1. The documentation of the active parameter (parameter information).
