@@ -1,3 +1,5 @@
+#+TITLE: ~eglot-signature-eldoc-talkative~
+
 * Rationale
 
 Eglot does not instruct Eldoc to echo the field "documentation" of
@@ -11,7 +13,7 @@ that makes Eglot instruct Eldoc to echo the field "documentation" of
 LSP-objects "signature information" and "parameter information" (into
 the echo-area).
 
-See also section "Screenshots".
+See also section "Screenshots" which includes an explanation.
 
 * Usage
 
@@ -56,10 +58,10 @@ instructed in the section "Usage":
 
 #+html: <img src="https://codeberg.org/mekeor/emacs-eglot-signature-eldoc-talkative/raw/branch/screenshots/talkative.png">
 
-In this example, this package made Eglot make Eldoc show two
+In this example, this package lead to Eglot letting Eldoc show two
 additional things:
 
-1. The documentation of the active parameter.
+1. The documentation of the active parameter (parameter information).
 2. The documentation of the function (signature information).
 
 (Note that the "(parameter) error: Fastify.FastifyError […]" bit is

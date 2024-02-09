@@ -7,8 +7,10 @@
 ;; Homepage: https://codeberg.org/mekeor/emacs-eglot-signature-eldoc-talkative
 ;; Keywords: convenience, documentation, eglot, eldoc, languages, lsp
 ;; Maintainer: Mekeor Melire <mekeor@posteo.de>
-;; Package-Requires: (emacs eglot)
-;; Version: 0.0.2
+;; Package-Requires: (emacs (eglot "1.16"))
+;; SPDX-License-Identifier: GPL-3.0-or-later
+;; Version: 0.0.3
+
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -41,8 +43,24 @@
 
 ;;; Code:
 
-(defun eglot-signature-eldoc-talkative--sig-info
-  (sig-help-sig &optional sig-help-active-param-i briefp)
+(require 'eglot)
+(require 'jsonrpc)
+(require 'seq)
+
+(defgroup eglot-signature-eldoc-talkative nil
+  "Make Eglot make ElDoc echo more docs."
+  :group 'eglot)
+
+(defcustom eglot-signature-eldoc-talkative-separator "\n\n"
+  "Separator used between different echoed information."
+  :type 'string)
+
+(defun eglot-signature-eldoc-talkative--sig-info (sig-help-sig &optional sig-help-active-param-i _)
+  "A talkative alternative to `eglot--sig-info'.
+
+Unlike the original, it additionally returns the documentation of
+both the LSP-objects signature-information and
+parameter-information."
   (eglot--dbind
     ((SignatureInformation)
       ((:label sig-info-label))
@@ -63,7 +81,7 @@
       (let
         ((sig-info-doc-formatted
            (when sig-info-doc
-             (concat "\n\n"
+             (concat eglot-signature-eldoc-talkative-separator
                (if (stringp sig-info-doc)
                  sig-info-doc (eglot--format-markup sig-info-doc))))))
         ;; If there is an active parameter, ...
@@ -95,7 +113,7 @@
                   'eldoc-highlight-function-argument)))
             ;; ... insert its documentation, ...
             (when param-info-doc
-              (insert "\n\n"
+              (insert eglot-signature-eldoc-talkative-separator
                 (propertize
                   (if (stringp param-info-doc) param-info-doc
                     (eglot--format-markup param-info-doc))
@@ -117,16 +135,22 @@
               ((ParameterInformation)
                 ((:documentation param-info-doc)))
               (when param-info-doc
-                (insert "\n\n"
+                (insert eglot-signature-eldoc-talkative-separator
                   (if (stringp param-info-doc) param-info-doc
                     (eglot--format-markup param-info-doc)))))
             sig-info-params)))
       (buffer-string))))
 
-;;;###autoload
 (defun eglot-signature-eldoc-talkative (cb)
-  "A member of `eldoc-documentation-functions', for signatures."
-  (when (eglot--server-capable :signatureHelpProvider)
+  "A talkative alternative to `eglot-signature-eldoc-function'.
+
+Unlike the original, it additionally echoes the documentation of
+both the LSP-objects signature-information and
+parameter-information."
+  ;; We depend on eglot version 1.16 because here we use
+  ;; `eglot-server-capable' which in that version replaced
+  ;; `eglot--server-capable'.
+  (when (eglot-server-capable :signatureHelpProvider)
     (let ((buf (current-buffer)))
       (jsonrpc-async-request
         (eglot--current-server-or-lose)
@@ -135,29 +159,33 @@
         :success-fn
         (eglot--lambda
           ((SignatureHelp)
-            signatures activeSignature activeParameter)
+            ((:signatures sig-help-sigs))
+            ((:activeSignature sig-help-active-sig))
+            ((:activeParameter sig-help-active-param-i)))
           (eglot--when-buffer-window buf
             (if-let
-              ((active-sig
+              ((sig-help-active-sig
                  (or
-                   (seq--elt-safe signatures activeSignature)
-                   ;; if activeSignature is out of range, try 0, as
-                   ;; recommended by LSP specification.
-                   (seq--elt-safe signatures 0))))
+                   (seq--elt-safe sig-help-sigs sig-help-active-sig)
+                   ;; if sig-help-active-sig is out of range, try 0,
+                   ;; as recommended by LSP specification.
+                   (seq--elt-safe sig-help-sigs 0))))
               (funcall cb
                 (mapconcat
                   (lambda (sig)
                     (eglot-signature-eldoc-talkative--sig-info
-                      active-sig activeParameter))
-                  signatures "\n\n")
+                      sig sig-help-active-param-i))
+                  sig-help-sigs
+                  eglot-signature-eldoc-talkative-separator)
                 :echo
                 (eglot-signature-eldoc-talkative--sig-info
-                  active-sig activeParameter t))
+                  sig-help-active-sig sig-help-active-param-i t))
               (funcall cb
-                (and signatures
+                (and sig-help-sigs
                   (mapconcat
                     #'eglot-signature-eldoc-talkative--sig-info
-                    signatures "\n\n"))))))
+                    sig-help-sigs
+                    eglot-signature-eldoc-talkative-separator))))))
         :deferred :textDocument/signatureHelp))
     t))
 
