@@ -8,7 +8,7 @@
 ;; Homepage: https://codeberg.org/mekeor/emacs-eglot-signature-eldoc-talkative
 ;; Keywords: convenience, documentation, eglot, eldoc, languages, lsp
 ;; Maintainer: Mekeor Melire <mekeor@posteo.de>
-;; Package-Requires: ((emacs "29.1") (eglot "1.16") (eldoc "1.14.0"))
+;; Package-Requires: ((emacs "29.1") (eglot "1.16") (eldoc "1.14.0") (jsonrpc "1.0.23"))
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 ;; Version: 0.0.5
 
