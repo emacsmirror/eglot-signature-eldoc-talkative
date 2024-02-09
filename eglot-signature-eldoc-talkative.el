@@ -2,7 +2,8 @@
 
 ;; Copyright (C) 2024 Free Software Foundation, Inc.
 
-;; Author: João Távora <joaotavora@gmail.com>, Mekeor Melire <mekeor@posteo.de>
+;; Author: João Távora <joaotavora@gmail.com>,
+;;         Mekeor Melire <mekeor@posteo.de>
 ;; Created: 2024
 ;; Homepage: https://codeberg.org/mekeor/emacs-eglot-signature-eldoc-talkative
 ;; Keywords: convenience, documentation, eglot, eldoc, languages, lsp
@@ -31,7 +32,7 @@
 
 ;; Eglot does not instruct ElDoc to echo the field "documentation" of
 ;; LSP-objects "signature information" and "parameter information"
-;; (into the echo-area). To read those fields, the user instead has to
+;; (into the echo-area).  To read those fields, the user instead has to
 ;; open the *eldoc* buffer by calling the command `eldoc-doc-buffer'
 ;; (bound to C-h . by default).
 
@@ -59,7 +60,15 @@
 
 Unlike the original, it additionally returns the documentation of
 both the LSP-objects signature-information and
-parameter-information."
+parameter-information.
+
+Argument SIG-HELP-SIG should be a member of the field `signatures'
+of a LSP-object `SignatureHelp' as declared in variable
+`eglot--lsp-interface-alist'.
+
+Optional argument SIG-HELP-ACTIVE-PARAM-I should be the value of
+the field `activeParameter' of a LSP-object `SignatureHelp' as
+declared in variable `eglot--lsp-interface-alist'."
   (eglot--dbind
     ((SignatureInformation)
       ((:label sig-info-label))
@@ -145,7 +154,10 @@ parameter-information."
 
 Unlike the original, it additionally echoes the documentation of
 both the LSP-objects signature-information and
-parameter-information."
+parameter-information.
+
+Argument CB should be a callback as described in the docstring of
+the variable `eldoc-documentation-functions'."
   ;; We depend on eglot version 1.16 because here we use
   ;; `eglot-server-capable' which in that version replaced
   ;; `eglot--server-capable'.
@@ -166,8 +178,9 @@ parameter-information."
               ((sig-help-active-sig
                  (or
                    (seq--elt-safe sig-help-sigs sig-help-active-sig)
-                   ;; if sig-help-active-sig is out of range, try 0,
-                   ;; as recommended by LSP specification.
+                   ;; If sig-help-active-sig is out of range, try 0,
+                   ;; as recommended by LSP specification:
+                   ;; https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#signatureHelp
                    (seq--elt-safe sig-help-sigs 0))))
               (funcall cb
                 (mapconcat
