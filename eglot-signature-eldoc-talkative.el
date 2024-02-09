@@ -21,20 +21,20 @@
 
 ;; This program is distributed in the hope that it will be useful, but
 ;; WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 ;; General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with this program. If not, see
+;; along with this program.  If not, see
 ;; <https://www.gnu.org/licenses/>.
 
 ;;; Commentary:
 
 ;; Eglot does not instruct ElDoc to echo the field "documentation" of
 ;; LSP-objects "signature information" and "parameter information"
-;; (into the echo-area).  To read those fields, the user instead has to
-;; open the *eldoc* buffer by calling the command `eldoc-doc-buffer'
-;; (bound to C-h . by default).
+;; (into the echo-area).  To read those fields, the user instead has
+;; to open the *eldoc* buffer by calling the command
+;; `eldoc-doc-buffer' (bound to C-h . by default).
 
 ;; This package offers a function, `eglot-signature-eldoc-talkative',
 ;; that makes Eglot instruct ElDoc to echo the field "documentation"
@@ -62,9 +62,9 @@ Unlike the original, it additionally returns the documentation of
 both the LSP-objects signature-information and
 parameter-information.
 
-Argument SIG-HELP-SIG should be a member of the field `signatures'
-of a LSP-object `SignatureHelp' as declared in variable
-`eglot--lsp-interface-alist'.
+Argument SIG-HELP-SIG should be a member of the field
+`signatures' of a LSP-object `SignatureHelp' as declared in
+variable `eglot--lsp-interface-alist'.
 
 Optional argument SIG-HELP-ACTIVE-PARAM-I should be the value of
 the field `activeParameter' of a LSP-object `SignatureHelp' as
@@ -152,9 +152,10 @@ declared in variable `eglot--lsp-interface-alist'."
 (defun eglot-signature-eldoc-talkative (cb)
   "A talkative alternative to `eglot-signature-eldoc-function'.
 
-Unlike the original, it additionally echoes the documentation of
-both the LSP-objects signature-information and
-parameter-information.
+Just like the original, it's meant to be used as a member of
+variable `eldoc-documentation-functions', for signatures.  Unlike
+the original, it additionally echoes the documentation of both
+the LSP-objects signature-information and parameter-information.
 
 Argument CB should be a callback as described in the docstring of
 the variable `eldoc-documentation-functions'."
