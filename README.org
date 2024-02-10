@@ -25,6 +25,8 @@ For installation, clone the repository to a path where it can stay
 permanently, and in your Emacs' =init.el=, add that path to your
 ~load-path~ variable.
 
+** Usage by setting ~eldoc-documentation-functions~
+
 For usage, in Eglot-managed buffers, in the buffer-local variable
 ~eldoc-documentation-functions~, replace
 ~eglot-signature-eldoc-function~ with
@@ -33,11 +35,13 @@ For usage, in Eglot-managed buffers, in the buffer-local variable
 #+begin_src elisp
 (defun my-eglot-specific-eldoc ()
 
-  ;; Use custom doc-funcs with custom priorities (by order):
+  ;; Use custom documentation-functions (with custom priorities, given
+  ;; by order):
   (setq-local eldoc-documentation-functions
     (list
       #'eglot-signature-eldoc-talkative
       #'eglot-hover-eldoc-function
+      t
       #'flymake-eldoc-function))
 
   ;; Optionally, in echo-area, only show the most important
@@ -47,6 +51,16 @@ For usage, in Eglot-managed buffers, in the buffer-local variable
   )
 
 (add-hook 'eglot-managed-mode-hook #'my-eglot-specific-eldoc)
+#+end_src
+
+** Usage by advicing ~eglot-signature-eldoc-function~
+
+Alternatively, you can add an override-advice to
+~eglot-signature-eldoc-function~ like this:
+
+#+begin_src elisp
+(advice-add #'eglot-signature-eldoc-function
+  :override #'eglot-signature-eldoc-talkative)
 #+end_src
 
 * Screenshots
