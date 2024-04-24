@@ -102,9 +102,10 @@ declared in variable `eglot--lsp-interface-alist'."
             active-param
             ;; then try to highlight its label, ...
             (pcase-let
-              ((`(,beg . ,end)
-                 (eglot--dbind ((ParameterInformation)
-                                 ((:label param-info-label)))
+              ((`(,beg ,end)
+                 (eglot--dbind
+                   ((ParameterInformation)
+                     ((:label param-info-label)))
                    active-param
                    (if (stringp param-info-label)
                      (let ((case-fold-search nil))
