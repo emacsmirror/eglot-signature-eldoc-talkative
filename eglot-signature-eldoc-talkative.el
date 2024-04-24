@@ -177,12 +177,15 @@ the variable `eldoc-documentation-functions'."
           (eglot--when-buffer-window buf
             (if-let
               ((sig-help-active-sig
-                 (or
-                   (seq--elt-safe sig-help-sigs sig-help-active-sig)
-                   ;; If sig-help-active-sig is out of range, try 0,
-                   ;; as recommended by LSP specification:
-                   ;; https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#signatureHelp
-                   (seq--elt-safe sig-help-sigs 0))))
+                 (and sig-help-sigs
+                   (or
+                     (and sig-help-active-sig
+                       (seq--elt-safe
+                         sig-help-sigs sig-help-active-sig))
+                     ;; If sig-help-active-sig is out of range, try 0,
+                     ;; as recommended by LSP specification:
+                     ;; https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#signatureHelp
+                     (seq--elt-safe sig-help-sigs 0)))))
               (funcall cb
                 (mapconcat
                   (lambda (sig)
