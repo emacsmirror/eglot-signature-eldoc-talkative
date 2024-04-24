@@ -114,7 +114,7 @@ declared in variable `eglot--lsp-interface-alist'."
                            (search-forward param-info-label
                              (line-end-position) t)
                            (cons (match-beginning 0) (match-end 0)))))
-                     (mapcar #'1+ param-info-label)))))
+                     (seq-map #'1+ param-info-label)))))
               (if (and beg end)
                 (add-face-text-property
                   beg end
