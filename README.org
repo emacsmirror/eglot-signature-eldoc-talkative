@@ -65,16 +65,16 @@ Alternatively, you can add an override-advice to
 
 * Screenshots
 
-[[https://codeberg.org/mekeor/emacs-eglot-signature-eldoc-talkative/raw/branch/screenshots/default.png][Here]]'s a screenshot with the default Eglot behavior, i.e. where
+[[https://codeberg.org/mekeor/eglot-signature-eldoc-talkative/raw/branch/screenshots/default.png][Here]]'s a screenshot with the default Eglot behavior, i.e. where
 ~eglot-signature-eldoc-function~ is in usage:
 
-#+html: <img src="https://codeberg.org/mekeor/emacs-eglot-signature-eldoc-talkative/raw/branch/screenshots/default.png">
+#+html: <img src="https://codeberg.org/mekeor/eglot-signature-eldoc-talkative/raw/branch/screenshots/default.png">
 
-[[https://codeberg.org/mekeor/emacs-eglot-signature-eldoc-talkative/raw/branch/screenshots/talkative.png][Here]]'s a screenshot which uses the function
+[[https://codeberg.org/mekeor/eglot-signature-eldoc-talkative/raw/branch/screenshots/talkative.png][Here]]'s a screenshot which uses the function
 ~eglot-signature-eldoc-talkative~ provided by this Emacs package, as
 instructed in [[* Usage][section "Usage"]]:
 
-#+html: <img src="https://codeberg.org/mekeor/emacs-eglot-signature-eldoc-talkative/raw/branch/screenshots/talkative.png">
+#+html: <img src="https://codeberg.org/mekeor/eglot-signature-eldoc-talkative/raw/branch/screenshots/talkative.png">
 
 In this example, this package lead to Eglot letting ElDoc echo two
 additional things:
